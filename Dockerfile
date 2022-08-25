@@ -13,5 +13,6 @@ RUN python3 -m pip install python-dotenv
 RUN python3 -m pip install flask-restful
 RUN python3 -m pip install pytest
 RUN python3 -m pip install flake8
+RUN python3 -m pip install pytest-cov
 COPY . /popular-repos
 CMD popular_repos.py
