@@ -24,13 +24,13 @@ async def get_repos_from_github(url):
     next_url = url
     repos = []
     async with aiohttp.ClientSession(
-        connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
         while next_url:
             async with session.get(
-                next_url, headers={"Authorization": token}) as response:
+                    next_url, headers={"Authorization": token}) as response:
                 content = json.loads(await response.text())
                 if isinstance(content, dict) and (
-                    content.get("message") == "Not Found"):
+                        content.get("message") == "Not Found"):
                     return EXCEPTION_VALUE
                 repos.extend(content)
                 if 'Link' in response.headers.keys():
