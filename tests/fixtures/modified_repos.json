@@ -1,0 +1,32 @@
+[
+    {
+        "id": 19652806,
+        "name": "repo6",
+        "stars": 2598,
+        "html_url": "https://github.com/bob/repo6"
+    },
+    {
+        "id": 18652354,
+        "name": "repo2",
+        "stars": 1000,
+        "html_url": "https://github.com/bob/repo2"
+    },
+    {
+        "id": 15672354,
+        "name": "repo7",
+        "stars": 894,
+        "html_url": "https://github.com/bob/repo7"
+    },
+    {
+        "id": 18652999,
+        "name": "repo5",
+        "stars": 678,
+        "html_url": "https://github.com/bob/repo5"
+    },
+    {
+        "id": 18657272,
+        "name": "repo3",
+        "stars": 597,
+        "html_url": "https://github.com/bob/repo3"
+    }
+]
