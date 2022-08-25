@@ -12,5 +12,6 @@ RUN python3 -m pip install redis
 RUN python3 -m pip install python-dotenv
 RUN python3 -m pip install flask-restful
 RUN python3 -m pip install pytest
+RUN python3 -m pip install flake8
 COPY . /popular-repos
 CMD popular_repos.py

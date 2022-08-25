@@ -1,15 +1,25 @@
 [tool.poetry]
 name = "popular-repos"
 version = "0.1.0"
-description = ""
+description = "Popular-repos is a web-service that uses GitHub API and shows the most starred repositories of the choosen User."
 authors = ["Dddarknight <9801677@gmail.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+classifiers = [
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3",
+  "Framework :: Flask",
+  "Topic :: Internet"
+]
+repository = "https://github.com/Dddarknight/popular-repos"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.8"
 Flask = "^2.2.2"
 asyncio = "^3.4.3"
 aiohttp = "^3.8.1"
 redis = "^4.3.4"
+flake8 = "^5.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
