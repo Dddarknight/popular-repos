@@ -22,7 +22,7 @@ api = Api(app)
 
 
 class Repos(Resource):
-    
+
     @cache.cached(timeout=DEFAULT_TIMEOUT, query_string=True)
     def get(self, username):
         url = build_url(username)
@@ -33,7 +33,8 @@ class Repos(Resource):
         limit = int(request.args.get('limit')) if (
             request.args.get('limit')) else DEFAULT_REPOS_COUNT
         return Response(json.dumps(
-            modified_repos[:limit], indent=INDENT), content_type='application/json')
+            modified_repos[:limit], indent=INDENT),
+            content_type='application/json')
 
 
 def build_url(username):
@@ -51,4 +52,4 @@ api.add_resource(Repos, "/api/top/<username>")
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')

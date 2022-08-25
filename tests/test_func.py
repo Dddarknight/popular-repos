@@ -1,4 +1,3 @@
-import pytest
 import popular_repos
 import json
 

@@ -18,15 +18,19 @@ def find_url_in_link(link):
         return None
     return url[0]
 
+
 async def get_repos_from_github(url):
     token = get_token()
     next_url = url
     repos = []
-    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
         while next_url:
-            async with session.get(next_url, headers={"Authorization": token}) as response:
+            async with session.get(
+                next_url, headers={"Authorization": token}) as response:
                 content = json.loads(await response.text())
-                if isinstance(content, dict) and content.get("message") == "Not Found":
+                if isinstance(content, dict) and (
+                    content.get("message") == "Not Found"):
                     return EXCEPTION_VALUE
                 repos.extend(content)
                 if 'Link' in response.headers.keys():
