@@ -13,7 +13,7 @@ install:
 	poetry install
 
 test-coverage:
-	poetry run pytest --cov=popular_repos --cov-report xml
+	poetry run pytest --cov=popular-repos --cov-report xml
 
 build:
 	poetry build
