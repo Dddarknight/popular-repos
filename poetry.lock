@@ -145,6 +145,14 @@ wrapt = ">=1.10,<2"
 dev = ["pytest-cov", "pytest", "PyTest-Cov (<2.6)", "PyTest (<5)", "zipp (<2)", "sphinxcontrib-websupport (<2)", "configparser (<5)", "importlib-resources (<4)", "importlib-metadata (<3)", "sphinx (<2)", "bump2version (<1)", "tox"]
 
 [[package]]
+name = "dotenv"
+version = "0.0.5"
+description = "Handle .env files"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "flake8"
 version = "5.0.4"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -475,7 +483,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8"
-content-hash = "cad50ae185993607565a9b04f4b2807e584074717d9c8bf54a913244b597aa5f"
+content-hash = "0d5ededbef5e3b4734151754bef42292cdad65d3678cdc0384ca8cc75d53c33d"
 
 [metadata.files]
 aiohttp = []
@@ -494,6 +502,7 @@ colorama = [
 ]
 coverage = []
 deprecated = []
+dotenv = []
 flake8 = []
 flask = []
 flask-caching = []
