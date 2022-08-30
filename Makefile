@@ -1,6 +1,7 @@
 run:
-	export FLASK_APP=popular_repos.py
-	export FLASK_DEBUG=development
+	export FLASK_APP=server.py
+	export FLASK_ENV=development
+	export FLASK_DEBUG=True
 	python -m flask run
 
 gunicorn:

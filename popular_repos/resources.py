@@ -1,24 +1,18 @@
 import asyncio
 import json
-from flask import Flask
 from flask import request, Response
-from flask_restful import Api, Resource
+from flask_restful import Resource
 from flask_caching import Cache
-from internal_repos import modify_external_repos
-from external_repos import get_repos_from_github
-from config import BaseConfig
+from popular_repos.adapted_repos import adapt_github_repos
+from popular_repos.github_api import get_repos_from_github
 
 
 DEFAULT_REPOS_COUNT = 10
 DEFAULT_TIMEOUT = 60
 INDENT = 4
-EXCEPTION_VALUE = "Not found"
 
 
-app = Flask(__name__)
-app.config.from_object(BaseConfig)
-cache = Cache(app)
-api = Api(app)
+cache = Cache()
 
 
 class Repos(Resource):
@@ -26,15 +20,15 @@ class Repos(Resource):
     @cache.cached(timeout=DEFAULT_TIMEOUT, query_string=True)
     def get(self, username):
         url = build_url(username)
-        repos = get_repos(url)
-        if repos == EXCEPTION_VALUE:
+        try:
+            repos = get_repos(url)
+        except KeyError:
             return 'The user was not found. Please, check Username.', 404
-        modified_repos = modify_external_repos(repos)
+        adapted_repos = adapt_github_repos(repos)
         limit = int(request.args.get('limit')) if (
             request.args.get('limit')) else DEFAULT_REPOS_COUNT
-        return Response(json.dumps(
-            modified_repos[:limit], indent=INDENT),
-            content_type='application/json')
+        return Response(make_json_repos(adapted_repos, limit),
+                        content_type='application/json')
 
 
 def build_url(username):
@@ -48,8 +42,5 @@ def get_repos(url):
     return repos
 
 
-api.add_resource(Repos, "/api/top/<username>")
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+def make_json_repos(adapted_repos, limit):
+    return json.dumps(adapted_repos[:limit], indent=INDENT)

@@ -4,7 +4,7 @@ import re
 import os
 
 
-EXCEPTION_VALUE = "Not found"
+PATTERN_NEXT_LINK = '<([^>]*)>; rel="next"'
 
 
 def get_token():
@@ -13,10 +13,8 @@ def get_token():
 
 
 def find_url_in_link(link):
-    url = re.findall(r'<([^>]*)>; rel="next"', link)
-    if not url:
-        return None
-    return url[0]
+    url = re.findall(PATTERN_NEXT_LINK, link)
+    return url[0] if url else None
 
 
 async def get_repos_from_github(url):
@@ -31,10 +29,13 @@ async def get_repos_from_github(url):
                 content = json.loads(await response.text())
                 if isinstance(content, dict) and (
                         content.get("message") == "Not Found"):
-                    return EXCEPTION_VALUE
+                    raise KeyError
                 repos.extend(content)
-                if 'Link' in response.headers.keys():
-                    next_url = find_url_in_link(response.headers['Link'])
-                else:
-                    next_url = None
+                next_url = build_next_url(response)
         return repos
+
+
+def build_next_url(response):
+    if 'Link' in response.headers.keys():
+        return find_url_in_link(response.headers['Link'])
+    return None

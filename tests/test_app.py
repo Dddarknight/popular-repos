@@ -1,4 +1,4 @@
-import popular_repos
+from popular_repos import resources, server
 import json
 
 
@@ -9,9 +9,8 @@ def test_pop_repos(monkeypatch):
             r = json.load(read_file)
             return r
 
-    monkeypatch.setattr(popular_repos, "get_repos", mock_get)
+    monkeypatch.setattr(resources, "get_repos", mock_get)
 
     with open('tests/fixtures/modified_repos.json') as expected_file:
-        x = popular_repos.api.app.test_client().get('/api/top/bob?limit=5')
-        print(x.text)
-        assert x.text == expected_file.read()
+        result = server.api.app.test_client().get('/api/top/bob?limit=5')
+        assert result.text == expected_file.read()

@@ -1,18 +1,14 @@
 FROM python:3.10
 ENV POETRY_VERSION=1.1.13
 RUN python3 -m pip install poetry==$POETRY_VERSION
-WORKDIR /popular-repos
-COPY poetry.lock pyproject.toml ./
+COPY ./poetry.lock ./pyproject.toml ./requirements.txt ./
+RUN pip3 install -r requirements.txt --no-cache-dir
 RUN poetry config virtualenvs.in-project true --local
 RUN poetry install --no-dev
-RUN python3 -m pip install flask
-RUN python3 -m pip install flask_caching
-RUN python3 -m pip install aiohttp
-RUN python3 -m pip install redis
-RUN python3 -m pip install python-dotenv
-RUN python3 -m pip install flask-restful
-RUN python3 -m pip install pytest
-RUN python3 -m pip install flake8
-RUN python3 -m pip install pytest-cov
-COPY . /popular-repos
-CMD popular_repos.py
+WORKDIR /popular_repos
+COPY popular_repos/server.py .
+COPY popular_repos/github_api.py popular_repos/github_api.py
+COPY popular_repos/adapted_repos.py popular_repos/adapted_repos.py
+COPY popular_repos/resources.py popular_repos/resources.py
+COPY popular_repos/config.py popular_repos/config.py
+CMD python server.py
